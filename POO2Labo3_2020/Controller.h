@@ -45,6 +45,13 @@ public:
      */
     void disembark(const string& name);
 
+    /**
+     *
+     * @param bank
+     */
+
+    void moveBoat(const Bank* bank);
+
 
     /**
      * Handle user command
@@ -60,7 +67,7 @@ private:
     Boat* _boat;
     unsigned _currentTurn = 0;
     const int TAILLE_RIVIERE=60;
-    const string _quit= "q", _menu="h", _poster="p", _shift="m", _reset="r", _load="e", _disload="d";
+    static const char _quit='q', _menu='h', _poster='p', _shift='m', _reset='r', _load='e', _disload='d';
 
 };
 

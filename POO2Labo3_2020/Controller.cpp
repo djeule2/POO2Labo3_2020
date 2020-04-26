@@ -14,23 +14,14 @@ _bank2(finalBank), _boat(boat){
 
 void Controller::showMenu(){
     const unsigned STREAM_SIZE =6;
-    cout<<_poster;
-    cout.width(STREAM_SIZE);
-    cout<<" "<<": afficher\n";
-    cout<< _load + " <nom>: embarquer <nom>\n"
-        << _disload + " <nom>: debarquer <nom>\n";
-    cout<< _shift;
-    cout.width(STREAM_SIZE);
-    cout<<" "<<": deplacer bateau\n";
-    cout<< _reset;
-    cout.width(STREAM_SIZE) ;
-    cout<<" "<< ": reinitialiser \n";
-    cout<< _quit;
-    cout.width(STREAM_SIZE);
-    cout<<" "<<": quitter\n";
-    cout << _menu ;
-    cout.width(STREAM_SIZE) ;
-    cout<<" "<<": menu\n\n";
+    const char space=' ';
+    cout<<_poster<< setfill(space) <<setw(STREAM_SIZE)<<space<<": afficher\n";
+    cout<< _load << " <nom>: embarquer <nom>\n"
+        << _disload << " <nom>: debarquer <nom>\n";
+    cout<< _shift << setfill(space)<<setw(STREAM_SIZE)<<space<<": deplacer bateau\n";
+    cout<< _reset << setfill(space)<< setw(STREAM_SIZE)<<space<< ": reinitialiser \n";
+    cout<< _quit << setfill(space)<<setw(STREAM_SIZE)<<space<<": quitter\n";
+    cout << _menu << setfill(space)<< setw(STREAM_SIZE)<<space<<": menu\n\n";
 }
 
 
@@ -51,7 +42,7 @@ void Controller::nextTurn(){
         cout << _currentTurn++ << ">";
         getline(cin, commande);
         handleCommand(commande);
-    }while (commande != _quit);
+    }while (commande.at(0) != _quit);
 }
 
 
@@ -65,7 +56,6 @@ void Controller::embark(const string& name){
 }
 
 void Controller::disembark(const string& name){
-    cout<<name<<endl;
     const Person* person=_boat->getPersonne(name);
     if(person != nullptr)
         _boat->getBank()->addPerson(_boat->removePerson(name));
@@ -73,45 +63,48 @@ void Controller::disembark(const string& name){
         cout << "personne absente"<< endl;
 }
 
+void Controller::moveBoat(const Bank* bank){
+    if(!_boat->isEmpty())
+        if(bank==_bank1) {
+            _boat->setBank(_bank2);
+        }
+        else {
+            _boat->setBank(_bank1);
+        }
+    else
+        cout << " Le bateau est vide \n";
+}
+
+
 void Controller::handleCommand(const string& cmd){
     string name;
     switch(cmd.at(0)){
-        case 'd':
+        case _disload:
             name = cmd.substr(2);
             disembark(name);
             display();
             break;
-        case 'e':
+        case _load:
             name = cmd.substr(2);
             embark(name);
             display();
             break;
-        case 'h':
+        case _menu:
             showMenu();
             break;
-        case 'm':
+        case _shift:
             cout << "Deplacement du bateau \n";
-            if(!_boat->isEmpty())
-                if(_boat->getBank()==_bank1) {
-                    _boat->setBank(_bank2);
-                    display();
-                }
-                else {
-                    _boat->setBank(_bank1);
-                    display();
-                }
-            else
-                cout << " Le bateau est vide \n";
-            break;
-        case 'p':
+            moveBoat(_boat->getBank());
             display();
             break;
-        case 'q':
+        case _poster:
+            display();
+            break;
+        case _quit:
             cout<<"Fermeture de l'application. \n";
             break;
-        case 'r':
+        case _reset:
             cout <<"Reinitialisation du jeu. \n";
-            name.clear();
             showMenu();
             display();
             break;

@@ -39,11 +39,8 @@ bool Container::contains(const Person* person) const {
 }
 
  Person* Container::getPersonne (const string& name)const {
-     cout<<name<<"okkkk"<<endl;
-
     for (Person* person : _person ) {
         cout<<person->getName()<<endl;
-        cout<<name<<"okkkk"<<endl;
         if (person->getName()==name) {
             return person;
         }
