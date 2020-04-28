@@ -5,43 +5,49 @@
 #include "Container.h"
 
 using namespace std;
-Container::Container(const string& name): _mame(name){
+
+Container::Container(const string &name) : _mame(name) {
 }
 
 Container::~Container() {
 }
-string  Container::getName() const {
+
+string Container::getName() const {
     return _mame;
 }
- void Container::addPerson(Person* person){
-   _person.push_back(person);
+
+void Container::addPerson(Person *person) {
+    _person.push_back(person);
 }
-Person* Container::removePerson(const string& nom){
-    Person* temp = getPersonne(nom);
-    if(temp){
+
+Person *Container::removePerson(const string &nom) {
+    Person *temp = getPersonne(nom);
+    if (temp) {
         _person.remove(temp);
         return temp;
     }
     throw string("personne absent");
 }
-int Container::getNbrePersonne()const {
+
+int Container::getNbrePersonne() const {
     return _person.size();
 }
-bool Container::isEmpty()const {
+
+bool Container::isEmpty() const {
     return _person.empty();
 }
 
-bool Container::contains(const Person* person) const {
-    for(Person* person1: _person)
-        if(person1==person)
+bool Container::contains(const Person *person) const {
+    for (Person *person1: _person)
+        if (person1 == person)
             return true;
     return false;
 }
 
- Person* Container::getPersonne (const string& name)const {
-    for (Person* person : _person ) {
-        cout<<person->getName()<<endl;
-        if (person->getName()==name) {
+Person *Container::getPersonne(const string &name) const {
+    for (Person *person : _person) {
+        cout << person->getName() << endl;
+        if (person->getName() == name) {
             return person;
         }
     }
@@ -49,9 +55,9 @@ bool Container::contains(const Person* person) const {
 }
 
 
-ostream& operator <<(ostream& os, const Container& container){
+ostream &operator<<(ostream &os, const Container &container) {
     string resultat = "";
-    for (Person* person: container._person)
-        resultat += person->getName() +" ";
+    for (Person *person: container._person)
+        resultat += person->getName() + " ";
     return os << resultat;
 }

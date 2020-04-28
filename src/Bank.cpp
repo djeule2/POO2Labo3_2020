@@ -9,7 +9,6 @@ using namespace std;
 Bank::Bank(const string& name): Container(name){}
 
 ostream& operator << (ostream& os, const Bank& bank) {
-    char prev = cout.fill('-');
     os << setfill('-') << setw(bank.SIZE_BANK) << "\n"
         <<bank.getName()<<" : "<< (Container)bank<<"\n"
         << setfill('-')<< setw(bank.SIZE_BANK)<< "\n";
@@ -19,7 +18,7 @@ ostream& operator << (ostream& os, const Bank& bank) {
 
 void Bank::addPersons(list< Person*> listPerson){
     for (Person* person: listPerson){
-        this->addPerson(person);
+        addPerson(person);
     }
 
 }

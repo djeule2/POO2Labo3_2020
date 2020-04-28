@@ -6,69 +6,92 @@
 #include <iostream>
 #include "Controller.h"
 
-Controller::Controller(const list<Person *> &person, Bank* startBank, Bank* finalBank, Boat* boat): _person(person), _bank1(startBank),
-_bank2(finalBank), _boat(boat){
-    _bank1->addPersons(_person);
+Controller::Controller() {
+    _fathers.push_back(new Father("pere"));
+    for(Person *p : _fathers) {
+        _persons.push_back(p);
+    }
+    _mothers.push_back(new Mother("mere"));
+    for(Person *p : _mothers) {
+        _persons.push_back(p);
+    }
+    _sons.push_back(new Son("paul"));
+    _sons.push_back(new Son("pierre"));
+    for(Person *p : _sons) {
+        _persons.push_back(p);
+    }
+    _daughters.push_back(new Daughter("julie"));
+    _daughters.push_back(new Daughter("jeanne"));
+    for(Person *p : _daughters) {
+        _persons.push_back(p);
+    }
+    _polimen.push_back(new Policeman("policier"));
+    for(Person *p : _polimen) {
+        _persons.push_back(p);
+    }
+    _robbers.push_back(new Robber("voleur"));
+    for(Person *p : _robbers) {
+        _persons.push_back(p);
+    }
+
+    _bank1 = new Bank("Gauche");
+    _bank1->addPersons(_persons);
+    _bank2 = new Bank("Droite");
+
+    _boat = new Boat("Bateau", _bank1);
 
 }
 
-void Controller::showMenu(){
-    const unsigned STREAM_SIZE =6;
-    const char space=' ';
-    cout<<_poster<< setfill(space) <<setw(STREAM_SIZE)<<space<<": afficher\n";
-    cout<< _load << " <nom>: embarquer <nom>\n"
-        << _disload << " <nom>: debarquer <nom>\n";
-    cout<< _shift << setfill(space)<<setw(STREAM_SIZE)<<space<<": deplacer bateau\n";
-    cout<< _reset << setfill(space)<< setw(STREAM_SIZE)<<space<< ": reinitialiser \n";
-    cout<< _quit << setfill(space)<<setw(STREAM_SIZE)<<space<<": quitter\n";
-    cout << _menu << setfill(space)<< setw(STREAM_SIZE)<<space<<": menu\n\n";
+void Controller::showMenu() {
+    const unsigned STREAM_SIZE = 6;
+    const char space = ' ';
+    cout << _poster << setfill(space) << setw(STREAM_SIZE) << space << ": afficher\n";
+    cout << _load << " <nom>: embarquer <nom>\n"
+         << _disload << " <nom>: debarquer <nom>\n";
+    cout << _shift << setfill(space) << setw(STREAM_SIZE) << space << ": deplacer bateau\n";
+    cout << _reset << setfill(space) << setw(STREAM_SIZE) << space << ": reinitialiser \n";
+    cout << _quit << setfill(space) << setw(STREAM_SIZE) << space << ": quitter\n";
+    cout << _menu << setfill(space) << setw(STREAM_SIZE) << space << ": menu\n\n";
 }
 
 
-void Controller::display(){
+void Controller::display() {
 
-    if(_boat->getBank()==_bank1) {
+    if (_boat->getBank() == _bank1) {
         cout << *_bank1 << *_boat << setfill('=') << setw(TAILLE_RIVIERE) << "\n\n" << *_bank2 << "\n";
-    }
-    else {
-        cout <<* _bank1 << "\n\n" << setfill('=') << setw(TAILLE_RIVIERE) << "\n" << *_boat << *_bank2 << "\n";
+    } else {
+        cout << *_bank1 << "\n\n" << setfill('=') << setw(TAILLE_RIVIERE) << "\n" << *_boat << *_bank2 << "\n";
     }
 }
 
 
-void Controller::nextTurn(){
-    string commande;
-    do{
-        cout << _currentTurn++ << ">";
-        getline(cin, commande);
-        handleCommand(commande);
-    }while (commande.at(0) != _quit);
+void Controller::nextTurn() {
+
 }
 
 
-void Controller::embark(const string& name){
+void Controller::embark(const string &name) {
 
-    const Person* person = _boat->getBank()->getPersonne(name);
-    if(person != nullptr)
+    const Person *person = _boat->getBank()->getPersonne(name);
+    if (person != nullptr)
         _boat->addPerson(_boat->getBank()->removePerson(name));
     else
-        cout << "pesonne absente"<<endl;
+        cout << "pesonne absente" << endl;
 }
 
-void Controller::disembark(const string& name){
-    const Person* person=_boat->getPersonne(name);
-    if(person != nullptr)
+void Controller::disembark(const string &name) {
+    const Person *person = _boat->getPersonne(name);
+    if (person != nullptr)
         _boat->getBank()->addPerson(_boat->removePerson(name));
     else
-        cout << "personne absente"<< endl;
+        cout << "personne absente" << endl;
 }
 
-void Controller::moveBoat(const Bank* bank){
-    if(!_boat->isEmpty())
-        if(bank==_bank1) {
+void Controller::moveBoat(const Bank *bank) {
+    if (!_boat->isEmpty())
+        if (bank == _bank1) {
             _boat->setBank(_bank2);
-        }
-        else {
+        } else {
             _boat->setBank(_bank1);
         }
     else
@@ -76,9 +99,9 @@ void Controller::moveBoat(const Bank* bank){
 }
 
 
-void Controller::handleCommand(const string& cmd){
+void Controller::handleCommand(const string &cmd) {
     string name;
-    switch(cmd.at(0)){
+    switch (cmd.at(0)) {
         case _disload:
             name = cmd.substr(2);
             disembark(name);
@@ -101,10 +124,10 @@ void Controller::handleCommand(const string& cmd){
             display();
             break;
         case _quit:
-            cout<<"Fermeture de l'application. \n";
+            cout << "Fermeture de l'application. \n";
             break;
         case _reset:
-            cout <<"Reinitialisation du jeu. \n";
+            cout << "Reinitialisation du jeu. \n";
             showMenu();
             display();
             break;
@@ -113,6 +136,17 @@ void Controller::handleCommand(const string& cmd){
             break;
 
     }
+}
+
+void Controller::startGame() {
+    showMenu();
+    display();
+    string commande;
+    do {
+        cout << _currentTurn++ << ">";
+        getline(cin, commande);
+        handleCommand(commande);
+    } while (commande.at(0) != _quit);
 }
 
 

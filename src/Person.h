@@ -10,12 +10,9 @@
 #include "Container.h"
 using namespace std;
 
-enum Gender{
-    M, F
-};
 class Person {
 public:
-    Person(const string& name, Gender gender);
+    Person(const string& name, bool canDrive = false);
     ~Person();
 
     /**
@@ -48,11 +45,10 @@ public:
    // virtual bool canJoinContainer(Container* c) const ;
 
     string getName()const ;
-    Gender getGender() const ;
 
 private:
     string  _name;
-    Gender _gender;
+    bool _canDrive;
 
 };
 

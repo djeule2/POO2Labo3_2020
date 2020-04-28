@@ -3,7 +3,7 @@
 //
 
 #include "Person.h"
-Person::Person(const string& name, Gender gender): _name(name), _gender(gender){
+Person::Person(const string& name, bool canDrive): _name(name), _canDrive(canDrive){
 
 
 }
@@ -11,7 +11,7 @@ Person::~Person(){}
 
 
  bool Person::canDrive() {
-     return false;
+     return _canDrive;
 
 }
 
@@ -25,9 +25,5 @@ Person::~Person(){}
 
 string Person::getName()const {
     return _name;
-
-}
-Gender Person::getGender() const {
-    return _gender;
 
 }

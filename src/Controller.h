@@ -9,10 +9,18 @@
 #include <list>
 #include "Bank.h"
 #include "Boat.h"
+#include "Son.h"
+#include "Mother.h"
+#include "Father.h"
+#include "Daughter.h"
+#include "Policeman.h"
+#include "Robber.h"
 
 class Controller {
 public:
-    Controller(const list<Person *> &person, Bank* startBank, Bank* finalBank, Boat* boat);
+    Controller();
+
+    void startGame();
 
     /**
      * Displays the different commands admissible for the game
@@ -36,38 +44,43 @@ public:
      * embark a personn
      * @param name
      */
-    void embark(const string& name);
+    void embark(const string &name);
 
 
     /**
      * disembark a person
      * @param name
      */
-    void disembark(const string& name);
+    void disembark(const string &name);
 
     /**
      *
      * @param bank
      */
 
-    void moveBoat(const Bank* bank);
+    void moveBoat(const Bank *bank);
 
 
     /**
      * Handle user command
      * @param cmd
      */
-    void handleCommand(const string& cmd);
+    void handleCommand(const string &cmd);
 
 private:
-    int turn;
-    list<Person*>  _person;
-    Bank* _bank1;
-    Bank* _bank2;
-    Boat* _boat;
+    list<Person *> _persons;
+    list<Father *> _fathers;
+    list<Mother *> _mothers;
+    list<Son *> _sons;
+    list<Daughter *> _daughters;
+    list<Policeman *> _polimen;
+    list<Robber *> _robbers;
+    Bank *_bank1;
+    Bank *_bank2;
+    Boat *_boat;
     unsigned _currentTurn = 0;
-    const int TAILLE_RIVIERE=60;
-    static const char _quit='q', _menu='h', _poster='p', _shift='m', _reset='r', _load='e', _disload='d';
+    const int TAILLE_RIVIERE = 60;
+    static const char _quit = 'q', _menu = 'h', _poster = 'p', _shift = 'm', _reset = 'r', _load = 'e', _disload = 'd';
 
 };
 
