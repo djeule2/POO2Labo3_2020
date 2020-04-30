@@ -21,10 +21,3 @@ void Boat::setBank(Bank* bank){
 Bank* Boat::getBank() const {
     return _currentBank;
 }
-void Boat::addPersons(Person* person){
-    if(getNbrePersonne() < _MAX_PASSAGER){
-        this->addPerson(person);
-    } else{
-        cout <<"bateau plein";
-    }
-}

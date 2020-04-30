@@ -13,7 +13,7 @@ class Person;
 
 class Container {
 public:
-    Container(const string& name);
+    explicit Container(const string& name);
     virtual ~ Container();
 
     /**
@@ -34,13 +34,13 @@ public:
      * @return
      */
 
-    Person* removePerson(const string & nom);
+    Person* removePerson(Person* person);
 
     /**
      * Get the number of people in the container
      * @return
      */
-    int getNbrePersonne()const;
+    int getNumberOfPersons()const;
 
     /**
      * determines if a container is empty
@@ -60,7 +60,11 @@ public:
      * @param name
      * @return
      */
-    Person* getPersonne (const string& name) const ;
+    Person* getPerson (const string& name) const ;
+    void emtpy();
+
+    list<Person *> getPersons();
+    bool isFull();
 
     /**
      *

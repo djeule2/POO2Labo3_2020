@@ -8,6 +8,6 @@
 
 class Daughter : public Person {
 public:
-    Daughter(const string& name) : Person(name){}
+    explicit Daughter(const string& name) : Person(name){}
 };
 #endif //POO2LABO3_2020_DAUGHTER_H

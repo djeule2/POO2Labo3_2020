@@ -25,7 +25,7 @@ public:
     /**
      * Displays the different commands admissible for the game
      */
-    void showMenu();
+    static void showMenu();
 
 
     /**
@@ -44,21 +44,21 @@ public:
      * embark a personn
      * @param name
      */
-    void embark(const string &name);
+    void embark(Person *p);
 
 
     /**
      * disembark a person
      * @param name
      */
-    void disembark(const string &name);
+    void disembark(Person *p);
 
     /**
      *
      * @param bank
      */
 
-    void moveBoat(const Bank *bank);
+    void moveBoat();
 
 
     /**
@@ -66,6 +66,15 @@ public:
      * @param cmd
      */
     void handleCommand(const string &cmd);
+    static bool checkDriver(Boat &b);
+    bool ruleRobber(Container *c);
+    bool ruleFather(Container *c);
+    bool ruleMother(Container *c);
+    void movePerson(Container *from, Container *to, Person *p);
+    bool checkRules(Container *from, Container *to);
+    void reset();
+    void clear();
+    Person* getPersonFromInput(const string &cmd);
 
 private:
     list<Person *> _persons;
@@ -73,14 +82,14 @@ private:
     list<Mother *> _mothers;
     list<Son *> _sons;
     list<Daughter *> _daughters;
-    list<Policeman *> _polimen;
+    list<Policeman *> _policemen;
     list<Robber *> _robbers;
     Bank *_bank1;
     Bank *_bank2;
     Boat *_boat;
     unsigned _currentTurn = 0;
     const int TAILLE_RIVIERE = 60;
-    static const char _quit = 'q', _menu = 'h', _poster = 'p', _shift = 'm', _reset = 'r', _load = 'e', _disload = 'd';
+    static const char QUIT = 'q', MENU = 'h', DISPLAY = 'p', MOVE = 'm', RESET = 'r', EMBARK = 'e', DISEMBARK = 'd';
 
 };
 

@@ -3,27 +3,21 @@
 //
 
 #include "Person.h"
-Person::Person(const string& name, bool canDrive): _name(name), _canDrive(canDrive){
+
+Person::Person(const string &name, bool canDrive) : _name(name), _canDrive(canDrive) {
 
 
 }
-Person::~Person(){}
+
+Person::~Person() {}
 
 
- bool Person::canDrive() {
-     return _canDrive;
+bool Person::canDrive() const {
+    return _canDrive;
 
 }
 
-
- //bool Person::move (Container* from, Container*to)const {}
-
-
-// bool Person::canLeaveContainer(Container* c)const {}
-
- //bool Person::canJoinContainer(Container* c) const {}
-
-string Person::getName()const {
+string Person::getName() const {
     return _name;
 
 }

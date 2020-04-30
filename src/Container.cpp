@@ -20,16 +20,11 @@ void Container::addPerson(Person *person) {
     _person.push_back(person);
 }
 
-Person *Container::removePerson(const string &nom) {
-    Person *temp = getPersonne(nom);
-    if (temp) {
-        _person.remove(temp);
-        return temp;
-    }
-    throw string("personne absent");
+Person *Container::removePerson(Person *person) {
+    _person.remove(person);
 }
 
-int Container::getNbrePersonne() const {
+int Container::getNumberOfPersons() const {
     return _person.size();
 }
 
@@ -44,7 +39,7 @@ bool Container::contains(const Person *person) const {
     return false;
 }
 
-Person *Container::getPersonne(const string &name) const {
+Person *Container::getPerson(const string &name) const {
     for (Person *person : _person) {
         cout << person->getName() << endl;
         if (person->getName() == name) {
@@ -56,8 +51,20 @@ Person *Container::getPersonne(const string &name) const {
 
 
 ostream &operator<<(ostream &os, const Container &container) {
-    string resultat = "";
+    string result;
     for (Person *person: container._person)
-        resultat += person->getName() + " ";
-    return os << resultat;
+        result += person->getName() + " ";
+    return os << result;
+}
+
+list<Person *> Container::getPersons() {
+    return _person;
+}
+
+bool Container::isFull() {
+    return false;
+}
+
+void Container::emtpy() {
+    _person.clear();
 }

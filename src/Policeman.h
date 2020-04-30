@@ -8,6 +8,6 @@
 
 class Policeman : public Person {
 public:
-    Policeman(const string& name) : Person(name, true){}
+    explicit Policeman(const string& name) : Person(name, true){}
 };
 #endif //POO2LABO3_2020_POLICEMAN_H

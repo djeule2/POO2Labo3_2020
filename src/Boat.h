@@ -35,12 +35,6 @@ public:
     Bank* getBank() const ;
 
 
-    /**
-     * add a person to a container
-     * @param person1
-     */
-    void addPersons(Person* person1);
-
 private:
     Bank* _currentBank;
     static const unsigned _MAX_PASSAGER = 2;
