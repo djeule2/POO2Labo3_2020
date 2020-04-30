@@ -146,6 +146,7 @@ void Controller::startGame() {
     display();
     string commande;
     do {
+        win();
         cout << _currentTurn << ">";
         getline(cin, commande);
         handleCommand(commande);
@@ -267,6 +268,20 @@ void Controller::clear() {
     _bank2->emtpy();
     _boat->emtpy();
     _boat->setBank(_bank1);
+}
+
+bool Controller::win() {
+    if(_boat->isEmpty() && _bank1->isEmpty()) { // si bateau et rive 1 vide
+        for (Person *p : _persons) {
+            if(!_bank2->contains(p)) {
+                return false; // on regarde si toutes les personnes ont traverser
+            }
+        }
+        reset();
+        cout << "HOURRA VOUS AVEZ GAGNER" << endl;
+        return true; // condition de victoire
+    }
+    return false;
 }
 
 

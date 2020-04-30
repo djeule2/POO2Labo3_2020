@@ -75,6 +75,7 @@ public:
     void reset();
     void clear();
     Person* getPersonFromInput(const string &cmd);
+    bool win();
 
 private:
     list<Person *> _persons;
