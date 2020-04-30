@@ -1,84 +1,107 @@
-//
-// Created by Lenovo T50s on 17.04.2020.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : Labo3 - Rivières
+ Fichier     : Container.h
+ Auteur(s)   : Alves Claude-André, Olivier Djeuzlezeck
+ Date        : 30.04.2020
 
+ But         : Classe représentant un objet qui contient des personnes
+
+ Remarque(s) : -
+
+ Compilateur : gcc 7.4.0
+ -----------------------------------------------------------------------------------
+ */
 #ifndef POO2LABO3_2020_CONTAINER_H
 #define POO2LABO3_2020_CONTAINER_H
+
 #include <list>
 #include <string>
 #include "Person.h"
+
 using namespace std;
 
 class Person;
 
 class Container {
 public:
-    explicit Container(const string& name);
+    /**
+     * Constructeur de conteneur
+     * @param name
+     */
+    explicit Container(const string &name);
+
+    /**
+     * Destructeur de conteneur
+     */
     virtual ~ Container();
 
     /**
-     * Returns the name of the container
+     * Getter de nom
      * @return
      */
-    string  getName() const ;
+    string getName() const;
 
     /**
-     * Add a person to the container
-     * @param person
+     * Méthode d'ajout de person
+     * @param person* personne à ajouter
      */
-   virtual void addPerson(Person* person);
+    virtual void addPerson(Person *person);
 
     /**
-     *
-     * @param nom
+     * Méthode qui permet d'enlever d'un personne du conteneneur
+     * @param Person* personne à enlever
      * @return
      */
 
-    Person* removePerson(Person* person);
+    Person *removePerson(Person *person);
 
     /**
-     * Get the number of people in the container
-     * @return
+     * Méthode qui permet d'avoir le nombre de personne que contient le conteneur
+     * @return int nombre de personnes
      */
-    int getNumberOfPersons()const;
+    int getNumberOfPersons() const;
 
     /**
-     * determines if a container is empty
-     * @return
+     * Méthode qui permet de savoir si un conteneur est vide
+     * @return true si le conteneur est vide false sinon
      */
-    bool isEmpty()const ;
+    bool isEmpty() const;
 
     /**
-     * Search for a person in the list of people
-     * @param person
-     * @return
+     * Méthode qui permet de savoir si une personne est dans le conteneur
+     * @param person a chercher
+     * @return true si la personne est présente false sinon
      */
-    bool contains(const Person* person) const ;
-
+    bool contains(const Person *person) const;
     /**
-     *
-     * @param name
-     * @return
+     * Méthode qui permet de vider le conteneur
      */
-    Person* getPerson (const string& name) const ;
     void emtpy();
-
+    /**
+     * Méthode qui permet d'avoir la liste des personne qui sont dans le conteneur
+     * @return
+     */
     list<Person *> getPersons();
-    bool isFull();
+    /**
+     * Méthode qui permet de savoir si notre conteneur est plein de base un conteneur ne peux pas être plein
+     * on le redéfinit dans chaque sous classe.
+     * @return
+     */
+    virtual bool isFull();
 
     /**
-     *
+     * Opérateur de flux pour l'affichage
      * @param os
      * @param container
      * @return
      */
-    friend ostream& operator <<(ostream& os, const Container& container) ;
+    friend ostream &operator<<(ostream &os, const Container &container);
 
 
-
-private:
+protected:
     string _mame;
-    list<Person*> _person;
+    list<Person *> _person;
 };
 
 

@@ -1,7 +1,17 @@
-//
-// Created by Lenovo T50s on 17.04.2020.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : Labo3 - Rivières
+ Fichier     : Bank.h
+ Auteur(s)   : Alves Claude-André, Olivier Djeuzlezeck
+ Date        : 30.04.2020
 
+ But         : Classe représentant une rive
+
+ Remarque(s) : -
+
+ Compilateur : gcc 7.4.0
+ -----------------------------------------------------------------------------------
+ */
 #include "Container.h"
 
 using namespace std;
@@ -10,6 +20,7 @@ Container::Container(const string &name) : _mame(name) {
 }
 
 Container::~Container() {
+    _person.clear();
 }
 
 string Container::getName() const {
@@ -38,17 +49,6 @@ bool Container::contains(const Person *person) const {
             return true;
     return false;
 }
-
-Person *Container::getPerson(const string &name) const {
-    for (Person *person : _person) {
-        cout << person->getName() << endl;
-        if (person->getName() == name) {
-            return person;
-        }
-    }
-    return nullptr;
-}
-
 
 ostream &operator<<(ostream &os, const Container &container) {
     string result;
