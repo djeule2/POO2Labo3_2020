@@ -74,15 +74,18 @@ public:
      * @return true si la personne est présente false sinon
      */
     bool contains(const Person *person) const;
+
     /**
      * Méthode qui permet de vider le conteneur
      */
     void emtpy();
+
     /**
      * Méthode qui permet d'avoir la liste des personne qui sont dans le conteneur
      * @return
      */
     list<Person *> getPersons();
+
     /**
      * Méthode qui permet de savoir si notre conteneur est plein de base un conteneur ne peux pas être plein
      * on le redéfinit dans chaque sous classe.

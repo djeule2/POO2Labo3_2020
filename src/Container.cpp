@@ -1,11 +1,11 @@
 /*
  -----------------------------------------------------------------------------------
  Laboratoire : Labo3 - Rivières
- Fichier     : Bank.h
+ Fichier     : Container.cpp
  Auteur(s)   : Alves Claude-André, Olivier Djeuzlezeck
  Date        : 30.04.2020
 
- But         : Classe représentant une rive
+ But         : Fichier d'implémentation de la classe Container
 
  Remarque(s) : -
 

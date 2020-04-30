@@ -1,7 +1,17 @@
-//
-// Created by Lenovo T50s on 17.04.2020.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : Labo3 - Rivières
+ Fichier     : Controller.cpp
+ Auteur(s)   : Alves Claude-André, Olivier Djeuzlezeck
+ Date        : 30.04.2020
 
+ But         : Fichier d'implémentation de Controller
+
+ Remarque(s) : -
+
+ Compilateur : gcc 7.4.0
+ -----------------------------------------------------------------------------------
+ */
 #include <iomanip>
 #include <iostream>
 #include "Controller.h"
@@ -260,6 +270,7 @@ bool Controller::ruleMother(Container *c) {
 void Controller::reset() {
     clear();
     _currentTurn = 0;
+    _boat->setBank(_bank1);
     _bank1->addPersons(_persons);
 }
 
@@ -267,21 +278,28 @@ void Controller::clear() {
     _bank1->emtpy();
     _bank2->emtpy();
     _boat->emtpy();
-    _boat->setBank(_bank1);
 }
 
-bool Controller::win() {
-    if(_boat->isEmpty() && _bank1->isEmpty()) { // si bateau et rive 1 vide
+void Controller::win() {
+    if (_boat->isEmpty() && _bank1->isEmpty()) { // si bateau et rive 1 vide
         for (Person *p : _persons) {
-            if(!_bank2->contains(p)) {
-                return false; // on regarde si toutes les personnes ont traverser
+            if (!_bank2->contains(p)) {
+                return; // on regarde si toutes les personnes ont traverser
             }
         }
         reset();
-        cout << "HOURRA VOUS AVEZ GAGNER" << endl;
-        return true; // condition de victoire
+        cout << "HOURRA VOUS AVEZ GAGNER" << endl; // condition de victoire
     }
-    return false;
+}
+
+Controller::~Controller() {
+    clear();
+    delete _bank1;
+    delete _bank2;
+    delete _boat;
+    for(Person* p : _persons) {
+        delete p;
+    }
 }
 
 
