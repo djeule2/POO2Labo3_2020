@@ -79,8 +79,6 @@ void Controller::embark(Person *p) {
     movePerson(_boat->getBank(), _boat, p);
     if (!checkRules(_boat->getBank(), _boat)) {
         movePerson(_boat, _boat->getBank(), p);
-    } else {
-        nextTurn();
     }
 }
 
@@ -88,8 +86,6 @@ void Controller::disembark(Person *p) {
     movePerson(_boat, _boat->getBank(), p);
     if (!checkRules(_boat, _boat->getBank())) {
         movePerson(_boat->getBank(), _boat, p);
-    } else {
-        nextTurn();
     }
 }
 
@@ -128,7 +124,6 @@ void Controller::handleCommand(const string &cmd) {
             showMenu();
             break;
         case MOVE:
-            cout << "Deplacement du bateau \n";
             moveBoat();
             display();
             break;
@@ -181,6 +176,7 @@ void Controller::movePerson(Container *from, Container *to, Person *p) {
         if (!to->isFull()) {
             from->removePerson(p);
             to->addPerson(p);
+            nextTurn();
         } else {
             cout << "destination est pleine" << endl;
         }
